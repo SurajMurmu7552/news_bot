@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, createRef } from 'react';
 import { fetchNewsHeadlines, fetchNewsSources } from '../utils/newsApi';
 import Options from './Options';
 import Sources from './Sources';
@@ -16,10 +16,20 @@ export default class Dashboard extends Component {
         language: '',
       },
     };
+
+    this.ref = createRef();
   }
 
   componentDidMount() {
-    fetchNewsHeadlines().then((articles) => this.setState({ articles }));
+    let localOptions = JSON.parse(localStorage.getItem('options'));
+
+    console.log(localOptions);
+
+    if (localOptions?.country) {
+      fetchNewsHeadlines(localOptions).then((articles) =>
+        this.setState({ articles }),
+      );
+    }
   }
 
   setCountry = (e) => {
@@ -63,15 +73,28 @@ export default class Dashboard extends Component {
 
   handleNext = (e) => {
     e.preventDefault();
-    fetchNewsHeadlines(this.state.options).then((articles) =>
-      this.setState({ articles }),
-    );
+    if (
+      this.state.options.country &&
+      this.state.options.category &&
+      this.state.options.language
+    ) {
+      localStorage.setItem('options', JSON.stringify(this.state.options));
+      fetchNewsHeadlines(this.state.options).then((articles) =>
+        this.setState({ articles, next: !this.state.next }),
+      );
+    }
   };
+
+  handleOptionRef() {
+    console.log(this.ref);
+    // this.optionRef.current.style = 'top :0';
+  }
 
   render() {
     return (
       <div className="Dashboard">
         <Options
+          ref={this.ref}
           setCountry={this.setCountry}
           setCategory={this.setCategory}
           setLanguage={this.setLanguage}
@@ -84,7 +107,28 @@ export default class Dashboard extends Component {
         /> 
         */}
 
-        <div className="news_headlines"></div>
+        <div className="option-icon">
+          <span onClick={this.handleOptionRef}> </span>
+        </div>
+        <div className="news_headlines">
+          {this.state.articles.map((article) => (
+            <div className="article">
+              <div className="title">{article.title}</div>
+
+              <div className="content">
+                <p className="author">Author : {article.author}</p>
+                <p className="publishedAt">
+                  published at : {article.publishedAt}
+                </p>
+                <p className="desc">{article.description}</p>
+
+                <p className="url">
+                  <a href={`${article.url}`}>{article.source.name}</a>
+                </p>
+              </div>
+            </div>
+          ))}
+        </div>
       </div>
     );
   }

@@ -9,7 +9,10 @@ const expressNewsHeadlines = async () => {
 const expressNewsContent = async (url) => {
   let res = await fetch('http://localhost:4000/getArticleContent', {
     method: 'POST',
-    body: JSON.stringify(url),
+    body: JSON.stringify({
+      url,
+    }),
+    headers: { 'Content-type': 'application/json' },
   });
 
   let data = await res.json();

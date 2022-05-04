@@ -93,6 +93,9 @@ export default class Dashboard extends Component {
   render() {
     return (
       <div className="Dashboard">
+        <div className="option-icon">
+          <span onClick={this.handleOptionRef}> </span>
+        </div>
         <Options
           ref={this.ref}
           setCountry={this.setCountry}
@@ -107,9 +110,6 @@ export default class Dashboard extends Component {
         /> 
         */}
 
-        <div className="option-icon">
-          <span onClick={this.handleOptionRef}> </span>
-        </div>
         <div className="news_headlines">
           {this.state.articles.map((article) => (
             <div className="article">

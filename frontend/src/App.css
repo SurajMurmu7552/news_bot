@@ -6,7 +6,7 @@
 .App {
   height: 100vh;
   width: 100%;
-  background-color: rgba(117, 117, 117, 0.2);
+  background-color: rgba(166, 165, 165, 0.2);
   /* padding-top: 20px; */
   display: grid;
   /* justify-content: center; */
@@ -37,40 +37,55 @@ a {
   color: rgb(9, 84, 197);
 }
 
+/* dashboard  */
+
 .Dashboard {
   position: relative;
   height: 80vh;
   width: 80vw;
   border-radius: 10px;
-  padding: 10px 5px;
   background-color: #fff;
   overflow: hidden;
   display: flex;
   flex-direction: column;
 }
 
+/* sub nav  */
+
 .option-icon {
   flex-basis: 10%;
-  padding: 10px 20px;
+  padding: 0 20px;
   display: flex;
   align-items: center;
-  justify-content: flex-end;
+  justify-content: space-between;
+  border-radius: 10px;
+  box-shadow: 0px 0px 10px rgb(178, 178, 178);
 }
 .option-icon > span {
+  z-index: 10;
   height: 30px;
   width: 30px;
   background-color: #333;
 }
 
+/* .dropdown form  */
 .dropdown {
   flex-basis: 90%;
   position: absolute;
   height: 60vh;
   width: 100%;
   padding: 20px;
-  z-index: 10;
+  border-radius: 10px;
+  z-index: 2;
   top: -100%;
+  background-color: #fff;
+  box-shadow: 0px 0px 10px rgb(178, 178, 178);
+  transition: top 0.5s ease-in-out;
 }
+.dropdown.active-form {
+  top: 0%;
+}
+
 .dropdown-container {
   /* border: 1px solid #333; */
   width: 96%;
@@ -96,6 +111,12 @@ a {
   display: grid;
   place-content: center;
   cursor: pointer;
+}
+
+.btn.active-btn {
+  background-color: rgb(0, 150, 210);
+  border: none;
+  color: #fff;
 }
 
 input[type='radio'] {
@@ -125,7 +146,8 @@ input[type='submit']:hover {
 .news_headlines {
   flex-basis: 90%;
   position: relative;
-  padding: 5px 10px;
+  padding: 10px;
+  margin: 5px 0;
   overflow-y: scroll;
   display: flex;
   flex-direction: column;
@@ -179,4 +201,14 @@ input[type='submit']:hover {
 .WikiHeadlines-container::-webkit-scrollbar-thumb {
   border-radius: 10px;
   background: rgb(179, 179, 179);
+}
+
+.source > a {
+  font-size: 14px;
+  color: #333;
+}
+
+/* for navLink */
+.active {
+  border-bottom: 1px solid #333;
 }

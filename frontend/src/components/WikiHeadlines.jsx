@@ -26,7 +26,7 @@ export default class WikiHeadlines extends Component {
               >
                 {entry.title}
               </NavLink>
-              <div className="title">
+              <div className="source">
                 <a
                   href={`${entry.ref}`}
                   target="_blank"

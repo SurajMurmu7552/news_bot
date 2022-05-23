@@ -9,7 +9,7 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 //start server
-app.get('/getArticles', (req, res) => {
+app.get('/getArticles', (req, res, next) => {
   getArticles('https://en.wikinews.org/wiki/Main_Page').then((data) =>
     res.send(data),
   );
